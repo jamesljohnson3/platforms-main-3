@@ -1,14 +1,9 @@
 // middleware.js
 import { NextResponse } from 'next/server';
+import { authMiddleware } from "@clerk/nextjs";
 import subdomains from './subdomains.json';
 
-export const config = {
-  matcher: [
-    "/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)",
-  ],
-};
-
-export default async function middleware(req) {
+const customMiddleware = async (req) => {
   const url = req.nextUrl;
   const hostname = req.headers.get("host");
 
@@ -34,4 +29,46 @@ export default async function middleware(req) {
   }
 
   return new Response(null, { status: 404 });
-}
+};
+
+export default authMiddleware({
+  // routes that don't require authentication
+  publicRoutes: [
+    "/terms-conditions",
+    "/signup",
+    "/signin",
+    "/register",
+    "/demo",
+    "/welcome",
+    "/auth",
+    "/sign-up",
+    "/sign-in",   
+    "/login",
+    "/dashboard(.*)",
+    "/p(.*)",
+    "/"
+  ],
+
+  afterAuth(auth, req) {
+    if (auth.isPublicRoute) {
+      // do nothing for public routes
+      return NextResponse.next();
+    }
+
+    const url = new URL(req.nextUrl.origin);
+
+    if (!auth.userId && !auth.isPublicRoute) {
+      // if the user tries to access a private route without being authenticated,
+      // redirect to login page
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+  },
+  // Wrap the custom middleware
+  middleware: customMiddleware,
+});
+
+export const config = {
+  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
+  matcher: ["/((?!api|_next/static|_next/image|.png).*)"],
+};
