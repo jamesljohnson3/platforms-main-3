@@ -1,20 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import { authMiddleware } from "@clerk/nextjs";
 
-export const config = {
-  matcher: [
-    /*
-     * Match all paths except for:
-     * 1. /api routes
-     * 2. /_next (Next.js internals)
-     * 3. /_static (inside /public)
-     * 4. all root files inside /public (e.g. /favicon.ico)
-     */
-    "/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)",
+const middleware = authMiddleware({
+  // routes that don't require authentication
+  publicRoutes: [
+    "/terms-conditions",
+    "/signup",
+    "/signin",
+    "/register",
+    "/demo",
+    "/welcome",
+    "/auth",
+    "/sign-up",
+    "/sign-in",
+    "/login",
+    "/dashboard(.*)",
+    "/p(.*)",
+    "/"
   ],
+
+  afterAuth(auth: { isPublicRoute: any; userId: any; }, req: { nextUrl: { origin: string | URL; }; }) {
+    if (auth.isPublicRoute) {
+      // do nothing for public routes
+      return NextResponse.next();
+    }
+
+    const url = new URL(req.nextUrl.origin);
+
+    if (!auth.userId && !auth.isPublicRoute) {
+      // if the user tries to access a private route without being authenticated,
+      // redirect to login page
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
+    }
+  },
+});
+
+const config = {
+  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
+  matcher: ["/((?!api|_next/static|_next/image|.png).*)"],
 };
 
-export default async function middleware(req: NextRequest) {
+// Original Middleware Function
+async function customMiddleware(req: NextRequest) {
   const url = req.nextUrl;
 
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
@@ -51,8 +80,6 @@ export default async function middleware(req: NextRequest) {
     );
   }
 
-
-
   // rewrite root application to `/home` folder
   if (
     hostname === "localhost:3000" ||
@@ -65,3 +92,5 @@ export default async function middleware(req: NextRequest) {
 
   // rewrite everything else to `/[domain]/[slug] dynamic route
 }
+
+export { middleware as default, config, customMiddleware };
