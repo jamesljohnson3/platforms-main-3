@@ -26,13 +26,6 @@ export default async function middleware(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams.toString();
   const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
 
-  // Rewrite root application to `/home` folder
-  if (
-    hostname === "localhost:3000" ||
-    hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
-  ) {
-    return NextResponse.rewrite(new URL(`/home${path === "/" ? "" : path}`, req.url));
-  }
 
   // Special case for app pages
   if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
