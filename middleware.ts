@@ -20,7 +20,7 @@ const middleware = authMiddleware({
     "/"
   ],
 
-  afterAuth(auth: { isPublicRoute: any; userId: any; }, req: { nextUrl: { origin: string | URL; }; }) {
+  afterAuth(auth, req) {
     if (auth.isPublicRoute) {
       // do nothing for public routes
       return NextResponse.next();
