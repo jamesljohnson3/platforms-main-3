@@ -51,12 +51,7 @@ export default async function middleware(req: NextRequest) {
     );
   }
 
-  // special case for `vercel.pub` domain
-  if (hostname === "thesteets.live") {
-    return NextResponse.redirect(
-      "https://unlimitpotential.com/",
-    );
-  }
+
 
   // rewrite root application to `/home` folder
   if (
