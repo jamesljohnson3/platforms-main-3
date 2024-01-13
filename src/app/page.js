@@ -1,6 +1,6 @@
-import { DataTable } from "@/src/components/DataTable";
-import { Recent } from "@/src/components/Recent";
-import { Summary } from "@/src/components/Summary";
+import { DataTable } from "@/components/Datatable";
+import { Recent } from "@/components/Recent";
+import { Summary } from "@/components/Summary";
 import { Box, Card, CardBody, Flex } from "@chakra-ui/react";
 
 export default async function Home() {

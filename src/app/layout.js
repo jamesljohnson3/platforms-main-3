@@ -1,4 +1,4 @@
-import { SidebarLayout } from "@/src/components/SidebarLayout";
+import { SidebarLayout } from "@/components/SidebarLayout";
 import { Providers } from "./providers";
 
 export default function RootLayout({ children }) {
