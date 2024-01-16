@@ -41,20 +41,7 @@ export function EmailVerificationForm(): JSX.Element {
         const message = await resendEmailVerificationLink()
 
         switch (message) {
-          case "not-found":
-            toast({
-              title: "User with this email address does not exist",
-              variant: "destructive",
-            })
-            form.reset()
-            break
-          case "success":
-            toast({
-              title: "Success!",
-              description: "Check your inbox and verify your email address",
-            })
-            router.push("/signin")
-            break
+          
           default:
             toast({
               title: "Error sending verification link",

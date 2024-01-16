@@ -42,13 +42,7 @@ export function ContactForm(): JSX.Element {
         const message = await submitContactForm()
 
         switch (message) {
-          case "success":
-            toast({
-              title: "Thank you!",
-              description: "Your message has been sent",
-            })
-            form.reset()
-            break
+   
           default:
             toast({
               title: "Something went wrong",

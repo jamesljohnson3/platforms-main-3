@@ -39,20 +39,7 @@ export function NewsletterSignUpForm(): JSX.Element {
         const message = await subscribeToNewsletter()
 
         switch (message) {
-          case "exists":
-            toast({
-              title: "You are subscribed already",
-              variant: "destructive",
-            })
-            form.reset()
-            break
-          case "success":
-            toast({
-              title: "Thank you!",
-              description: "You have successfully subscribed to our newsletter",
-            })
-            form.reset()
-            break
+          
           default:
             toast({
               title: "Something went wrong",
