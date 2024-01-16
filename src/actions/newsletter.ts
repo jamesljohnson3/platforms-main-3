@@ -23,26 +23,18 @@ export async function checkIfSubscribedToNewsletter(
 }
 
 export async function subscribeToNewsletter(
-  email: string
-): Promise<"exists" | "success" | null> {
-  try {
-    const alreadySubscribed = await checkIfSubscribedToNewsletter(email)
-    if (alreadySubscribed) return "exists"
-
-    const newSubscriber = await prisma.newsletterSubscriber.create({
-      data: { email },
-    })
-
-    const emailSent = await sendEmail({
-      from: env.RESEND_EMAIL_FROM,
-      to: email,
-      subject: "Welcome to our newsletter!",
-      react: NewsletterWelcomeEmail(),
-    })
-
-    return newSubscriber && emailSent ? "success" : null
-  } catch (error) {
-    console.error(error)
-    throw new Error("Error subscribing to the newsletter")
+  ) {
+    try {
+      const response = await fetch(`https://vault.unlimitpotential.com/api/store?id=`);
+  
+      if (!response.ok) {
+        throw new Error(`Failed to fetch store data: ${response.statusText}`);
+      }
+    
+      console.log("Email sent successfully")
+    } catch (error) {
+      console.error(error)
+      throw new Error("Error sending email")
+    }
   }
-}
+  
