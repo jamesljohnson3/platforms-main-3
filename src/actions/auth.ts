@@ -40,11 +40,7 @@ export async function signUpWithPassword(
     })
 
     const emailSent = await sendEmail({
-      from: env.RESEND_EMAIL_FROM,
-      to: [email],
-      subject: "Verify your email address",
-      react: EmailVerificationEmail({ email, emailVerificationToken }),
-    })
+     })
 
     return userUpdated && emailSent ? "success" : null
   } catch (error) {
