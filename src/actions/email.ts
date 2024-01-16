@@ -72,26 +72,18 @@ export async function markEmailAsVerified(
   }
 }
 
-export async function submitContactForm(formData: {
-  email: string
-  name: string
-  message: string
-}): Promise<"success" | null> {
+export async function submitContactForm() {
   try {
-    const emailSent = await sendEmail({
-      from: env.RESEND_EMAIL_FROM,
-      to: env.RESEND_EMAIL_TO,
-      subject: "Exciting news! New enquiry awaits",
-      react: NewEnquiryEmail({
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      }),
-    })
+    const response = await fetch(`https://vault.unlimitpotential.com/api/store?id=`);
 
-    return emailSent ? "success" : null
+    if (!response.ok) {
+      throw new Error(`Failed to fetch store data: ${response.statusText}`);
+    }
+  
+    console.log("Email sent successfully")
   } catch (error) {
     console.error(error)
-    throw new Error("Error submitting contact form")
+    throw new Error("Error sending email")
   }
 }
+
