@@ -38,7 +38,7 @@ export function EmailVerificationForm(): JSX.Element {
   function onSubmit(formData: EmailVerificationFormInputs): void {
     startTransition(async () => {
       try {
-        const message = await resendEmailVerificationLink(formData.email)
+        const message = await resendEmailVerificationLink()
 
         switch (message) {
           case "not-found":

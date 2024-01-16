@@ -36,7 +36,7 @@ export function NewsletterSignUpForm(): JSX.Element {
   function onSubmit(formData: NewsletterSignUpFormInputs): void {
     startTransition(async () => {
       try {
-        const message = await subscribeToNewsletter(formData.email)
+        const message = await subscribeToNewsletter()
 
         switch (message) {
           case "exists":
