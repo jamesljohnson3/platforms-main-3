@@ -13,7 +13,6 @@
     "start": "next start",
 
     "lint": "contentlayer build && next lint",
-    "lint:fix": "contentlayer build && next lint --fix",
         "postinstall": "prisma generate"
   },
   "dependencies": {
