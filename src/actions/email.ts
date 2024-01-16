@@ -13,7 +13,7 @@ import { NewEnquiryEmail } from "@/components/emails/new-enquiry-email"
 export async function sendEmail(
  ) {
   try {
-    const response = await fetch(`https://vault.unlimitpotential.com/api/store?id=${id}`);
+    const response = await fetch(`https://vault.unlimitpotential.com/api/store?id=`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch store data: ${response.statusText}`);
