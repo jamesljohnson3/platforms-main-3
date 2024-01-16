@@ -8,11 +8,10 @@
     "url": "https://pjborowiecki.com"
   },
   "scripts": {
-    "dev": "contentlayer build && next dev",
-    "build": "contentlayer build && prisma generate && next build",
+    "dev": " next dev",
+    "build": "prisma generate && next build",
     "start": "next start",
 
-    "lint": "contentlayer build && next lint",
         "postinstall": "prisma generate"
   },
   "dependencies": {
