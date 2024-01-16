@@ -12,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { PasswordUpdateForm } from "@/components/forms/password-update-form"
 import { Icons } from "@/components/icons"
 
 export const metadata: Metadata = {
@@ -68,9 +67,7 @@ export default async function PasswordUpdatePage({
             <CardDescription>Set your new password</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-2">
-            <PasswordUpdateForm
-              resetPasswordToken={String(searchParams.token)}
-            />
+          
             <Link
               aria-label="Cancel password update"
               href="/signin"
