@@ -29,7 +29,6 @@ export default function PasswordReset(): JSX.Element {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-2">
-          <PasswordResetForm />
           <Link
             aria-label="Back to the sign in page"
             href="/signin"
