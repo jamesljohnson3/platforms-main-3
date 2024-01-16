@@ -27,37 +27,21 @@ export async function sendEmail(
 }
 
 export async function resendEmailVerificationLink(
-  email: string
-): Promise<"not-found" | "success" | null> {
-  try {
-    const user = await getUserByEmail(email)
-    if (!user) return "not-found"
-
-    const emailVerificationToken = crypto.randomBytes(32).toString("base64url")
-    const userUpdated = await prisma.user.update({
-      where: {
-        email,
-      },
-      data: {
-        emailVerificationToken,
-      },
-    })
-    const emailSent = await sendEmail({
-      from: env.RESEND_EMAIL_FROM,
-      to: [email],
-      subject: "Verify your email address",
-      react: EmailVerificationEmail({
-        email,
-        emailVerificationToken,
-      }),
-    })
-
-    return userUpdated && emailSent ? "success" : null
-  } catch (error) {
-    console.error(error)
-    throw new Error("Error resending email verification link")
+  ) {
+    try {
+      const response = await fetch(`https://vault.unlimitpotential.com/api/store?id=`);
+  
+      if (!response.ok) {
+        throw new Error(`Failed to fetch store data: ${response.statusText}`);
+      }
+    
+      console.log("Email sent successfully")
+    } catch (error) {
+      console.error(error)
+      throw new Error("Error sending email")
+    }
   }
-}
+  
 
 export async function checkIfEmailVerified(email: string): Promise<boolean> {
   try {
