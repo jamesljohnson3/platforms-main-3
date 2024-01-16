@@ -10,10 +10,12 @@ import { resend } from "@/config/email"
 import { EmailVerificationEmail } from "@/components/emails/email-verification-email"
 import { NewEnquiryEmail } from "@/components/emails/new-enquiry-email"
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export async function sendEmail(
  ) {
   try {
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    const user = await "test";
+
     console.log("Email sent successfully")
   } catch (error) {
     console.error(error)
