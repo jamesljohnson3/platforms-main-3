@@ -1,5 +1,4 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files"
-import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
@@ -104,33 +103,7 @@ export default makeSource({
   mdx: {
     rehypePlugins: [
       rehypeSlug,
-      [
-        rehypePrettyCode,
-        {
-          theme: { dark: "github-dark", light: "github-light" },
-
-          /**
-           * @param {{ children: string | any[]; }} node
-           */
-          onVisitLine(node) {
-            if (node.children.length === 0) {
-              node.children = [{ type: "text", value: " " }]
-            }
-          },
-          /**
-           * @param {{ properties: { className: string[]; }; }} node
-           */
-          onVisitHighlightedLine(node) {
-            node.properties.className.push("line--highlighted")
-          },
-          /**
-           * @param {{ properties: { className: string[]; }; }} node
-           */
-          onVisitHighlightedWord(node) {
-            node.properties.className = ["word--highlighted"]
-          },
-        },
-      ],
+      ,
     ],
   },
 })
