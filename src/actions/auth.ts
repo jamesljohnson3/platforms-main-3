@@ -39,8 +39,7 @@ export async function signUpWithPassword(
       },
     })
 
-    const emailSent = await sendEmail({
-     })
+    const emailSent = await sendEmail()
 
     return userUpdated && emailSent ? "success" : null
   } catch (error) {
