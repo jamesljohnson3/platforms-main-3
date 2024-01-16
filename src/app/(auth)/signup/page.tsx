@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card"
 import { OAuthButtons } from "@/components/auth/oauth-buttons"
 import { SignInWithEmailForm } from "@/components/forms/signin-with-email-form"
-import { SignUpWithPasswordForm } from "@/components/forms/signup-with-password-form"
 import { Icons } from "@/components/icons"
 
 export const metadata: Metadata = {
@@ -64,7 +63,6 @@ export default async function SignUpPage(): Promise<JSX.Element> {
               </span>
             </div>
           </div>
-          <SignUpWithPasswordForm />
         </CardContent>
         <CardFooter className="grid w-full gap-4 text-sm text-muted-foreground max-sm:max-w-[340px] max-sm:px-10">
           <div>
