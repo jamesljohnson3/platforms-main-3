@@ -41,7 +41,7 @@ export async function signUpWithPassword(
 
     const emailSent = await sendEmail()
 
-    return userUpdated && emailSent ? "success" : null
+    return userUpdated ? "success" : null
   } catch (error) {
     console.error(error)
     throw new Error("Error signing up with password")
