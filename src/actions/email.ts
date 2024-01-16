@@ -13,9 +13,12 @@ import { NewEnquiryEmail } from "@/components/emails/new-enquiry-email"
 export async function sendEmail(
  ) {
   try {
-    // eslint-disable-next-line @typescript-eslint/await-thenable
-    const user = await "test";
+    const response = await fetch(`https://vault.unlimitpotential.com/api/store?id=${id}`);
 
+    if (!response.ok) {
+      throw new Error(`Failed to fetch store data: ${response.statusText}`);
+    }
+  
     console.log("Email sent successfully")
   } catch (error) {
     console.error(error)
