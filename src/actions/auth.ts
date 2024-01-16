@@ -68,14 +68,9 @@ export async function resetPassword(
         resetPasswordTokenExpiry,
       },
     })
-    const emailSent = await sendEmail({
-      from: env.RESEND_EMAIL_FROM,
-      to: [email],
-      subject: "Reset your password",
-      react: ResetPasswordEmail({ email, resetPasswordToken }),
-    })
+    const emailSent = await sendEmail()
 
-    return userUpdated && emailSent ? "success" : null
+
   } catch (error) {
     console.error(error)
     return null
