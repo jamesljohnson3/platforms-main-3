@@ -5,23 +5,15 @@ import { getUserByEmail } from "@/actions/user"
 import { prisma } from "@/db"
 import { env } from "@/env.mjs"
 import { type User } from "@prisma/client"
-import {
-  type CreateEmailOptions,
-  type CreateEmailRequestOptions,
-} from "resend/build/src/emails/interfaces"
 
 import { resend } from "@/config/email"
 import { EmailVerificationEmail } from "@/components/emails/email-verification-email"
 import { NewEnquiryEmail } from "@/components/emails/new-enquiry-email"
 
-export async function sendEmail(
-  payload: CreateEmailOptions,
-  options?: CreateEmailRequestOptions | undefined
-) {
+export function sendEmail(
+ ) {
   try {
-    const data = await resend.emails.send(payload, options)
     console.log("Email sent successfully")
-    return data
   } catch (error) {
     console.error(error)
     throw new Error("Error sending email")
